@@ -1,0 +1,16 @@
+stuff to do for hogue assignment 3:
+(Optional) add imgui to the code(Done)
+
+From stephens tutorial code:
+(Had it open and just typed manually)
+transform
+joint(Done)
+skiined gameobject = gameobject(alomost done)
+
+
+GDW CODE:
+shader program (straight copy and paste)Done
+timer (straight copy and paste)Done
+Camera (Copy and paste mostly, change return types of things, add in the newperspective function)(Done)
+main (straight copy and paste)Done
+game (copied and pasted removed a bunch)
