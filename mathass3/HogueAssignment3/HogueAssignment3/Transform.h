@@ -1,20 +1,45 @@
 #pragma once
 #include "Joint.h"
+#include <string>
+#include <GLM/glm/glm.hpp>
+#include <GLM/glm/gtx/transform.hpp>
+#include <GLM/glm/gtc/type_ptr.hpp>
+
+using glm::mat4;
+using glm::vec3;
+using glm::vec4;
 
 class Transform
 {
 public:
+	float m_pScale = 1.0f;
+	float m_pRotX = 0.0f;
+	float m_pRotY = 0.0f;
+	float m_pRotZ = 0.0f;
+
+	vec3 m_pLocalPosition;
+
+	mat4 m_pLocalRotation;
+	mat4 m_pLocalToWorldMatrix;
+
 	Transform();
-	~Transform();
 
-private:
+	void setPosition(vec3 newPosition);
+	void setRotationAngleX(float newAngle);
+	void setRotationAngleY(float newAngle);
+	void setRotationAngleZ(float newAngle);
+	void setScale(float newScale);
 
+	vec3 getPosition();
+	float getRotationAngleY();
+
+	mat4 getLocalToWorldMatrix();
+
+	virtual void update(float dt);
+	virtual void draw();
+
+protected:
+	// Other Properties
+	std::string name;
+	vec4 color;
 };
-
-Transform::Transform()
-{
-}
-
-Transform::~Transform()
-{
-}
