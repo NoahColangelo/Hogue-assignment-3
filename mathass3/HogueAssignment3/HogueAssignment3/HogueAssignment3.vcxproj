@@ -117,21 +117,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\GDW GO NUTS\OpenGL_Framework\Camera.cpp" />
-    <ClCompile Include="..\..\..\..\GDW GO NUTS\OpenGL_Framework\Game.cpp" />
-    <ClCompile Include="..\..\..\..\GDW GO NUTS\OpenGL_Framework\ShaderProgram.cpp" />
-    <ClCompile Include="..\..\..\..\GDW GO NUTS\OpenGL_Framework\Timer.cpp" />
+    <ClCompile Include="BVHLoader.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\GDW GO NUTS\OpenGL_Framework\Camera.h" />
-    <ClInclude Include="..\..\..\..\GDW GO NUTS\OpenGL_Framework\Game.h" />
-    <ClInclude Include="..\..\..\..\GDW GO NUTS\OpenGL_Framework\ShaderProgram.h" />
-    <ClInclude Include="..\..\..\..\GDW GO NUTS\OpenGL_Framework\Timer.h" />
     <ClInclude Include="BVHLoader.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Joint.h" />
+    <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="Transform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

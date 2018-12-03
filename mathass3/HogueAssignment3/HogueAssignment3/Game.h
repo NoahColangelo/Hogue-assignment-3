@@ -1,23 +1,21 @@
 #pragma once
 
-//#include "ShaderProgram.h"
-//#include "Mesh.h"
 #include "GameObject.h"
-#include "ObjectLoader.h"
-
+#include <imgui/imgui.h>
+#include <imgui/imgui_impl_freeglut.h>
+#include <imgui/imgui_impl_opengl3.h>
 #include <windows.h>
 #include "GL/glew.h"
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
+#include <GLM/glm/glm.hpp>
 
 #include "Timer.h"
 #include "Transform.h"
 #include "Camera.h"
-#include "ParticleEmitter.h"
 
-#include "GUIHelper.h"
-
+using glm::vec3;
 
 #define WINDOW_WIDTH			1900
 #define WINDOW_HEIGHT			1000
@@ -34,10 +32,6 @@ public:
 	void initializeGame();
 	void update();
 	void draw();
-
-	vector<GameObject> add(vector<GameObject> objectVec1, vector<GameObject> objectVec2);
-	vector<GameObject> objectSetup(const string shader, const string mesh, const string texture,const bool physics,
-								   const Vector3 position, const Vector3 scale, const int amount, float offset);
 	void imguiDraw();
 
 	/* input callback functions */
@@ -52,51 +46,9 @@ public:
 
 	float drawTime = 0.0f;
 
-	Vector3 offse = Vector3(0,18,-25.882f);
-
 private:
 	// Scene Objects.
 	Camera camera;
-	Camera UICamera;
 
 	GameObject player;
-	GameObject coneBoi;
-	float t = 0.0f;
-
-	//UI
-	GameObject nutOmeter;
-	GameObject time;
-
-	//Vector3 p1 = Vector3(0.0f, 0.0f, -5.0f);
-	//Vector3 p2 = Vector3(2.0f, 6.0f, -5.0f);
-	//Vector3 p3 = Vector3(10.0f, 5.0f, -5.0f);
-	//Vector3 p4 = Vector3(7.0f, 2.0f, -5.0f);
-
-	Vector3 p1 = Vector3(2.0f, 10.0f, -5.0f);
-	Vector3 p2 = Vector3(2.0f, 9.0f, -5.0f);
-	Vector3 p3 = Vector3(2.0f, 5.0f, -5.0f);
-	Vector3 p4 = Vector3(2.0f, 3.0f, -5.0f);
-
-	vector<GameObject> coins;
-	vector<GameObject> Acorns;
-	vector<GameObject> Cones;
-	vector<GameObject> Spikes;
-	vector<GameObject> Vents;
-	vector<GameObject> platforms;
-	vector<GameObject> sceneObjects;
-	vector<GameObject> Background;
-	vector<GameObject> upperPlatforms;
-
-	GameObject* particleTrail;
-	GameObject* jumpParticles;
-
-	bool collided = false;
-	bool sliding = false;
-	bool reverse = false;
-
-	float counter = 0.0f;
-
-	Light* light;
-	Light* spotLight;
-
 };

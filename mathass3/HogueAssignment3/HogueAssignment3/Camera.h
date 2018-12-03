@@ -1,11 +1,12 @@
 #pragma once
 #include "Transform.h"
+#include <GLM/glm/glm.hpp>
 
+using glm::mat4;
 
 enum ProjectionType
 {
 	Perspective,
-	Orthographic
 };
 
 class Camera : public Transform
@@ -18,16 +19,11 @@ public:
 		float fovy, float aspect, 
 		float zNear, float zFar);
 
-	void orthographic(
-		float left, float right,
-		float bottom, float top,
-		float zNear, float zFar);
-
-	Matrix44 getView() const;
-	Matrix44 getProjection() const;
+	mat4 getView() const;
+	mat4 getProjection() const;
 	ProjectionType getProjType() const;
 
 private:
 	ProjectionType projectionType = ProjectionType::Perspective;
-	Matrix44 projection;
+	mat4 projection;
 };
