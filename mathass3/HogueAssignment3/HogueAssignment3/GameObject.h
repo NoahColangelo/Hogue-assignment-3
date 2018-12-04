@@ -4,6 +4,7 @@
 #include "BVHLoader.h"
 #include "Camera.h"
 #include "ShaderProgram.h"
+#include <GLM/glm/gtc/matrix_inverse.hpp>
 
 class BVHLoader;
 
@@ -21,13 +22,21 @@ public:
 	virtual void update(float dt);
 	void initializeSkeletonFromBVH(std::string BVHFilePath);
 	void addAnimation(BVHLoader* animation);
+	void draw(Camera& camera);
+	void getJointInfo(int frames);
+	quat createQuat(const vec3& rotation, const string& order);
+
+	GLuint VAO = GL_NONE;
+	GLuint VBO = GL_NONE;
+
+	ShaderProgram* _shaderProgram;
+	BVHLoader* BVHAnimation;
+	vector<BVHLoader*> animations;
 
 protected:
 
 	int CurrentFrame;
-	vector<BVHLoader*> animations;
-	BVHLoader* BVHAnimation;
-	Joint* JointAnimation; // The animation for this specific joint
 
+	Joint* JointAnimation; // The animation for this specific joint
 
 };

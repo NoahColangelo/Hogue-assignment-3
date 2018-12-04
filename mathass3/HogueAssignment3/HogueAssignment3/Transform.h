@@ -21,6 +21,7 @@ public:
 	float RotZ = 0.0f;
 
 	vec3 LocalPosition;
+	vec3 worldPosition;
 
 	mat4 LocalRotation;
 	mat4 LocalToWorldMatrix;
@@ -38,6 +39,8 @@ public:
 
 	mat4 getLocalToWorldMatrix();
 	mat4 LocalTransformMatrix;
+
+	void addChild(Transform* child);
 
 	virtual void update(float dt);
 	virtual void draw();

@@ -78,7 +78,7 @@ void BVHLoader::createGameObjects()
 		if (!child || !parent)
 			continue;
 
-		parent->Children.push_back(child);
+		parent->addChild(child);
 	}
 }
 

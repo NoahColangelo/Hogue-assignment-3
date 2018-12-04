@@ -18,12 +18,30 @@ void Game::initializeGame()
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_TEXTURE_2D);
 
-	skeleton.initializeSkeletonFromBVH("../HogueAssignment3/assets/strongAttack.bvh");
-	skeleton.setPosition(vec3(0));
+
+	skeleton._shaderProgram = new ShaderProgram;
+	skeleton._shaderProgram->load("../HogueAssignment3/assets/shaders/error.vert", "../HogueAssignment3/assets/shaders/error.frag");
+
+	skeleton.initializeSkeletonFromBVH("../HogueAssignment3/assets/bvh/Jump.bvh");
+	skeleton.setPosition(vec3(0, 0, 0));
+	skeleton.addAnimation(skeleton.BVHAnimation);
+	skeleton.setScale(3.0f);
+	skeleton.setRotationAngleX(90.0f);
+
+	for (int i = 0; i < skeleton.animations.size(); i++)
+	{
+		for (int j = 0; j < skeleton.animations[i]->_jointGameObjects.size(); j++)
+		{
+			skeleton.animations[i]->_jointGameObjects[j]->_shaderProgram = new ShaderProgram;
+			skeleton.animations[i]->_jointGameObjects[j]->_shaderProgram->load("../HogueAssignment3/assets/shaders/error.vert",
+				"../HogueAssignment3/assets/shaders/error.frag");;
+		}
+	}
 
 	float aspect = static_cast<float>(WINDOW_WIDTH) / static_cast<float>(WINDOW_HEIGHT);
 	camera.perspective(60.0f, aspect, 1.0f, 1000.0f);
 	camera.setPosition(vec3(0.0f, 0.0f, 5.0f));
+	
 }
 
 void Game::update()
@@ -35,6 +53,7 @@ void Game::update()
 	TotalGameTime += deltaTime;
 	drawTime += deltaTime;
 
+	skeleton.update(deltaTime);
 	camera.update(deltaTime);
 }
 
@@ -42,23 +61,30 @@ void Game::draw()
 {
 		// Completely clear the Back-Buffer before doing any work.
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(1, 1, 1, 1);
 
+		for (int i = 0; i < skeleton.animations.size(); i++)
+		{
+			for (int j = 0; j < skeleton.animations[i]->_jointGameObjects.size(); j++)
+			{
+				skeleton.animations[i]->_jointGameObjects[j]->draw(camera);
+			}
+		}
 #ifdef _DEBUG
 		// New imgui frame
 		//ImGui_ImplOpenGL3_NewFrame();
 		//ImGui_ImplFreeGLUT_NewFrame();
 
 		// Update imgui widgets
-		imguiDraw();
-
+		//imguiDraw();
 		// Render imgui
 		//ImGui::Render();
 #endif
 
 		// Update imgui draw data
 		glUseProgram(GL_NONE);
-#ifdef _DEBUG
 
+#ifdef _DEBUG
 		//ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 #endif
 

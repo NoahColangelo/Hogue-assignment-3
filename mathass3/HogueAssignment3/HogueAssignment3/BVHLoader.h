@@ -22,6 +22,7 @@ public:
 	void createGameObjects();
 	Transform* getRootGameObject();
 	vector<GameObject*> getGameObjects() const;
+	vector<GameObject*> _jointGameObjects;
 
 	int getNumOfFrames() const;
 
@@ -43,6 +44,5 @@ private:
 
 	// Animation Data
 	vector<Joint*> _joints;
-	vector<GameObject*> _jointGameObjects;
 	GameObject* _rootGameObject;
 };

@@ -5,6 +5,8 @@
 #include <GLM/glm/gtx/quaternion.hpp>
 #include<vector>
 
+using glm::quat;
+
 enum RotationOrder
 {
 	XYZ = 0,

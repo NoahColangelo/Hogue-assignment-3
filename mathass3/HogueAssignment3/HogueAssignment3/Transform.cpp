@@ -46,6 +46,12 @@ mat4 Transform::getLocalToWorldMatrix()
 	return LocalToWorldMatrix;
 }
 
+void Transform::addChild(Transform * child)
+{
+	Children.push_back(child);
+	child->Parent = this;
+}
+
 void Transform::update(float dt)
 {
 	// Create 4x4 transformation matrix
@@ -65,15 +71,22 @@ void Transform::update(float dt)
 
 	// Create translation matrix
 	mat4 tran = glm::translate(LocalPosition);
-	//tran.Translate(m_pLocalPosition);
 
 	// Create scale matrix
 	mat4 scale = glm::scale(vec3(Scale));
 
-	//scale.Scale(m_pScale);
-
 	// Combine all above transforms into a single matrix
 	LocalToWorldMatrix = tran * LocalRotation * scale;
+
+	if (Parent)
+		LocalToWorldMatrix = Parent->getLocalToWorldMatrix() * LocalTransformMatrix;
+	else
+		LocalToWorldMatrix = LocalTransformMatrix;
+
+	worldPosition = vec3(LocalToWorldMatrix[3][0], LocalToWorldMatrix[3][1], LocalToWorldMatrix[3][2]);
+
+	for (Transform* child : Children)
+		child->update(dt);
 }
 
 void Transform::draw()

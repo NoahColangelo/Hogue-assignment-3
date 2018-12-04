@@ -22,6 +22,7 @@ public:
 	mat4 getView();
 	mat4 getProjection() const;
 	ProjectionType getProjType() const;
+	mat4 getinverse();
 
 private:
 	ProjectionType projectionType = ProjectionType::Perspective;
