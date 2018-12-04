@@ -23,9 +23,7 @@ void Game::initializeGame()
 
 	float aspect = static_cast<float>(WINDOW_WIDTH) / static_cast<float>(WINDOW_HEIGHT);
 	camera.perspective(60.0f, aspect, 1.0f, 1000.0f);
-	//camera.orthographic(-10, 10, -10, 10, -100, 100);
-	camera.setWorldPosition(vec3(0.0f, 0.0f, 5.0f));
-	camera.setLocalRotationAngleX(camera.getLocalRotationAngleX() - 0.2f);
+	camera.setPosition(vec3(0.0f, 0.0f, 5.0f));
 }
 
 void Game::update()
@@ -37,7 +35,6 @@ void Game::update()
 	TotalGameTime += deltaTime;
 	drawTime += deltaTime;
 
-	camera.setWorldPosition(MathLibCore::lerp( camera.getWorldPosition(), player.getWorldPosition(), deltaTime * 3));
 	camera.update(deltaTime);
 }
 
@@ -93,13 +90,6 @@ void Game::keyboardDown(unsigned char key, int mouseX, int mouseY)
 	switch (key)
 	{
 	case 32:
-		if (camera.getProjType() == ProjectionType::Perspective)
-			camera.orthographic(-10.0f, 10.0f, 10.0f, -10.0f, -100.0f, 100.0f);
-		else
-		{
-			float aspect = static_cast<float>(WINDOW_WIDTH) / static_cast<float>(WINDOW_HEIGHT);
-			camera.perspective(60.0f, aspect, 1.0f, 1000.0f);
-		}
 		break;
 	case 27: // the escape key
 	//case 'q': // the 'q' key

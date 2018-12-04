@@ -19,7 +19,7 @@ public:
 		float fovy, float aspect, 
 		float zNear, float zFar);
 
-	mat4 getView() const;
+	mat4 getView();
 	mat4 getProjection() const;
 	ProjectionType getProjType() const;
 

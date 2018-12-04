@@ -17,7 +17,7 @@ void Camera::perspective(float fovy, float aspect, float zNear, float zFar)
 
 }
 
-mat4 Camera::getView() const
+mat4 Camera::getView()
 {
 	return getLocalToWorldMatrix();
 }
