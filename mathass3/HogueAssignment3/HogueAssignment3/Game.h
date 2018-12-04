@@ -1,9 +1,5 @@
 #pragma once
 
-#include "GameObject.h"
-#include <imgui/imgui.h>
-#include <imgui/imgui_impl_freeglut.h>
-#include <imgui/imgui_impl_opengl3.h>
 #include <windows.h>
 #include "GL/glew.h"
 #include <GL/gl.h>
@@ -11,6 +7,7 @@
 #include <GL/glut.h>
 #include <GLM/glm/glm.hpp>
 
+#include "GameObject.h"
 #include "Timer.h"
 #include "Transform.h"
 #include "Camera.h"
@@ -50,5 +47,5 @@ private:
 	// Scene Objects.
 	Camera camera;
 
-	GameObject player;
+	GameObject skeleton;
 };

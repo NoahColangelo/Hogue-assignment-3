@@ -4,23 +4,26 @@
 #include <GLM/glm/glm.hpp>
 #include <GLM/glm/gtx/transform.hpp>
 #include <GLM/glm/gtc/type_ptr.hpp>
+#include <vector>
 
 using glm::mat4;
 using glm::vec3;
 using glm::vec4;
+using std::string;
+using std::vector;
 
 class Transform
 {
 public:
-	float m_pScale = 1.0f;
-	float m_pRotX = 0.0f;
-	float m_pRotY = 0.0f;
-	float m_pRotZ = 0.0f;
+	vec3 Scale = vec3(1.0f);
+	float RotX = 0.0f;
+	float RotY = 0.0f;
+	float RotZ = 0.0f;
 
-	vec3 m_pLocalPosition;
+	vec3 LocalPosition;
 
-	mat4 m_pLocalRotation;
-	mat4 m_pLocalToWorldMatrix;
+	mat4 LocalRotation;
+	mat4 LocalToWorldMatrix;
 
 	Transform();
 
@@ -34,9 +37,13 @@ public:
 	float getRotationAngleY();
 
 	mat4 getLocalToWorldMatrix();
+	mat4 LocalTransformMatrix;
 
 	virtual void update(float dt);
 	virtual void draw();
+
+	std::vector <Transform*> Children;
+	Transform* Parent;
 
 protected:
 	// Other Properties

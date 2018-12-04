@@ -18,8 +18,8 @@ void Game::initializeGame()
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_TEXTURE_2D);
 
-	//player.setWorldPosition(Vector3(-3.0f, 8.0f, -5.0f));
-	//player.setLocalScale(0.2f);
+	skeleton.initializeSkeletonFromBVH("../HogueAssignment3/assets/strongAttack.bvh");
+	skeleton.setPosition(vec3(0));
 
 	float aspect = static_cast<float>(WINDOW_WIDTH) / static_cast<float>(WINDOW_HEIGHT);
 	camera.perspective(60.0f, aspect, 1.0f, 1000.0f);
@@ -45,21 +45,21 @@ void Game::draw()
 
 #ifdef _DEBUG
 		// New imgui frame
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplFreeGLUT_NewFrame();
+		//ImGui_ImplOpenGL3_NewFrame();
+		//ImGui_ImplFreeGLUT_NewFrame();
 
 		// Update imgui widgets
 		imguiDraw();
 
 		// Render imgui
-		ImGui::Render();
+		//ImGui::Render();
 #endif
 
 		// Update imgui draw data
 		glUseProgram(GL_NONE);
 #ifdef _DEBUG
 
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		//ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 #endif
 
 		// Commit the Back-Buffer to swap with the Front-Buffer and be displayed on the monitor.
@@ -70,21 +70,21 @@ void Game::draw()
 void Game::imguiDraw()
 {
 	{
-		ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+		//ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
 
 
 	}
 
-		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-		ImGui::End();
+		//ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+		//ImGui::End();
 }
 
 void Game::keyboardDown(unsigned char key, int mouseX, int mouseY)
 {
 #ifdef _DEBUG
 
-	ImGuiIO& io = ImGui::GetIO();
-	io.KeysDown[key] = true;
+	//ImGuiIO& io = ImGui::GetIO();
+	//io.KeysDown[key] = true;
 #endif
 
 	switch (key)
@@ -102,8 +102,8 @@ void Game::keyboardUp(unsigned char key, int mouseX, int mouseY)
 {
 #ifdef _DEBUG
 
-	ImGuiIO& io = ImGui::GetIO();
-	io.KeysDown[key] = false;
+	//ImGuiIO& io = ImGui::GetIO();
+	//io.KeysDown[key] = false;
 #endif
 
 	switch(key)
@@ -124,8 +124,8 @@ void Game::mouseClicked(int button, int state, int x, int y)
 {
 #ifdef _DEBUG
 
-	ImGuiIO& io = ImGui::GetIO();
-	io.MousePos = ImVec2((float)x, (float)y);
+	//ImGuiIO& io = ImGui::GetIO();
+	//io.MousePos = ImVec2((float)x, (float)y);
 	//io.MouseDown[button] = state;
 
 	if(state == GLUT_DOWN) 
@@ -133,13 +133,13 @@ void Game::mouseClicked(int button, int state, int x, int y)
 		switch(button)
 		{
 		case GLUT_LEFT_BUTTON:
-			io.MouseDown[0] = true;
+			//io.MouseDown[0] = true;
 			break;
 		case GLUT_RIGHT_BUTTON:
-			io.MouseDown[1] = true;
+			//io.MouseDown[1] = true;
 			break;
 		case GLUT_MIDDLE_BUTTON:
-			io.MouseDown[2] = true;
+			//io.MouseDown[2] = true;
 			break;
 		}
 	}
@@ -148,13 +148,13 @@ void Game::mouseClicked(int button, int state, int x, int y)
 		switch (button)
 		{
 		case GLUT_LEFT_BUTTON:
-			io.MouseDown[0] = false;
+			//io.MouseDown[0] = false;
 			break;
 		case GLUT_RIGHT_BUTTON:
-			io.MouseDown[1] = false;
+			//io.MouseDown[1] = false;
 			break;
 		case GLUT_MIDDLE_BUTTON:
-			io.MouseDown[2] = false;
+			//io.MouseDown[2] = false;
 			break;
 		}
 	}
@@ -171,6 +171,6 @@ void Game::mouseClicked(int button, int state, int x, int y)
  */
 void Game::mouseMoved(int x, int y)
 {
-	ImGuiIO& io = ImGui::GetIO();
-	io.MousePos = ImVec2((float)x, (float)y);
+	//ImGuiIO& io = ImGui::GetIO();
+	//io.MousePos = ImVec2((float)x, (float)y);
 }

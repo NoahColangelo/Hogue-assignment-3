@@ -5,9 +5,9 @@
 #include "Game.h"
 #include <GL/freeglut.h>
 #include <string>
-#include "imgui/imgui.h"
-#include "imgui/imgui_impl_freeglut.h"
-#include "imgui/imgui_impl_opengl3.h"
+//#include "imgui/imgui.h"
+//#include "imgui/imgui_impl_freeglut.h"
+//#include "imgui/imgui_impl_opengl3.h"
 
 
 using std::cout;
@@ -206,14 +206,14 @@ int main(int argc, char **argv)
 #ifdef _DEBUG
 	InitOpenGLDebugCallback();
 
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO();
-	io.DisplaySize.x = WINDOW_WIDTH;
-	io.DisplaySize.y = WINDOW_HEIGHT;
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+	//ImGui::CreateContext();
+	//ImGuiIO& io = ImGui::GetIO();
+	//io.DisplaySize.x = WINDOW_WIDTH;
+	//io.DisplaySize.y = WINDOW_HEIGHT;
+	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 
-	ImGui_ImplFreeGLUT_Init();
-	ImGui_ImplOpenGL3_Init();
+	//ImGui_ImplFreeGLUT_Init();
+	//ImGui_ImplOpenGL3_Init();
 #endif
 
 	/* init the game */

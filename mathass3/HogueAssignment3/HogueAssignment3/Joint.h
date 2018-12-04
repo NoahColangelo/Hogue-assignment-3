@@ -14,6 +14,16 @@ enum RotationOrder
 	YZX = 0
 };
 
+enum channels
+{
+	xPosition,
+	yPosition,
+	zPosition,
+	xRotation,
+	yRotation, 
+	zRotation
+};
+
 struct Joint
 {
 	Joint()
@@ -23,12 +33,15 @@ struct Joint
 
 	std::string jointName;			// Name of joint
 	std::string jointParent;		// Name of joint's parent
-	glm::vec3	jointBasePosition;	// Position of joint at frame 0
 	glm::quat jointBaseRotation;	// Rotation of joint at frame 0
+	glm::vec3	offset;	// Position of joint at frame 0
+	
 
 	std::vector<glm::vec3>	jointPositions;		// Joint point for each frame (should all be zero except for root)
 	std::vector<glm::quat> jointRotations;	// Joint rotations for each frame 
 	std::vector<float> jointScales;
+	std::vector<channels> Channels;
+	std::vector<std::vector<float>> motionData;
 
 	unsigned int numOfFrames;
 };

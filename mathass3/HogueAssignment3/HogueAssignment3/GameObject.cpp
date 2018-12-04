@@ -31,28 +31,27 @@ void GameObject::update(float dt)
 		if ((CurrentFrame) >= (int)JointAnimation->numOfFrames)
 			(CurrentFrame) = 0;
 
-		glm::mat4 baseRotation = glm::mat4_cast(JointAnimation->jointBaseRotation);
-		glm::mat4 baseTranslation = glm::translate(JointAnimation->jointBasePosition);
-		glm::mat4 bindSpaceTransform = baseTranslation * baseRotation;
+		mat4 baseRotation = glm::mat4_cast(JointAnimation->jointBaseRotation);
+		mat4 baseTranslation = glm::translate(JointAnimation->offset);
+		mat4 bindSpaceTransform = baseTranslation * baseRotation;
 
 		if (CurrentFrame != -1)
 		{
-			//// Todo: create localRotation, scale and translation matrices using HTR data
 
 			LocalRotation =
 				glm::mat4_cast(JointAnimation->jointBaseRotation *
 					JointAnimation->jointRotations[CurrentFrame]);
 
-			LocalPosition = JointAnimation->jointBasePosition +
+			LocalPosition = JointAnimation->offset *
 				JointAnimation->jointPositions[CurrentFrame];
 
-			LocalScale = glm::vec3(JointAnimation->jointScales[CurrentFrame]);
+			Scale = glm::vec3(JointAnimation->jointScales[CurrentFrame]);
 
 			// Create translation matrix
-			glm::mat4 tran = glm::translate(LocalPosition);
+			mat4 tran = glm::translate(LocalPosition);
 
 			// Create scale matrix
-			glm::mat4 scal = glm::scale(LocalScale);
+			mat4 scal = glm::scale(Scale);
 
 			LocalTransformMatrix = tran * LocalRotation * scal;
 		}
@@ -69,7 +68,7 @@ void GameObject::update(float dt)
 		}
 
 		// Update children
-		for (int i = 0; i < Children.size(); i++)
+		for (unsigned int i = 0; i < Children.size(); i++)
 			Children[i]->update(dt);
 
 		// Increment frame to next frame
@@ -94,5 +93,10 @@ void GameObject::initializeSkeletonFromBVH(std::string BVHFilePath)
  // Add the root node from the HTR file as a child to
  // this GameObject. This allows us to control the locomotion of the hierarchy
  // my changing 'this' GameObject's scale, rotation and translation
-	addChild(BVHAnimation->getRootGameObject());
+	Children.push_back(BVHAnimation->getRootGameObject());
+}
+
+void GameObject::addAnimation(BVHLoader * animation)
+{
+	animations.push_back(animation);
 }

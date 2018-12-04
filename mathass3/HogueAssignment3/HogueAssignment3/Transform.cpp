@@ -8,42 +8,42 @@ Transform::Transform()
 
 void Transform::setPosition(vec3 newPosition)
 {
-	m_pLocalPosition = newPosition;
+	LocalPosition = newPosition;
 }
 
 void Transform::setRotationAngleX(float newAngle)
 {
-	m_pRotX = newAngle;
+	RotX = newAngle;
 }
 
 void Transform::setRotationAngleY(float newAngle)
 {
-	m_pRotY = newAngle;
+	RotY = newAngle;
 }
 
 void Transform::setRotationAngleZ(float newAngle)
 {
-	m_pRotZ = newAngle;
+	RotZ = newAngle;
 }
 
 void Transform::setScale(float newScale)
 {
-	m_pScale = newScale;
+	Scale = vec3(newScale);
 }
 
 vec3 Transform::getPosition()
 {
-	return m_pLocalPosition;
+	return LocalPosition;
 }
 
 float Transform::getRotationAngleY()
 {
-	return m_pRotY;
+	return RotY;
 }
 
 mat4 Transform::getLocalToWorldMatrix()
 {
-	return m_pLocalToWorldMatrix;
+	return LocalToWorldMatrix;
 }
 
 void Transform::update(float dt)
@@ -56,24 +56,24 @@ void Transform::update(float dt)
 	mat4 ry;
 	mat4 rz;
 	
-	rx = glm::rotate(m_pRotX, vec3(1, 0, 0));
-	ry = glm::rotate(m_pRotY, vec3(0, 1, 0));
-	rz = glm::rotate(m_pRotZ, vec3(0, 0, 1));
+	rx = glm::rotate(RotX, vec3(1, 0, 0));
+	ry = glm::rotate(RotY, vec3(0, 1, 0));
+	rz = glm::rotate(RotZ, vec3(0, 0, 1));
 
 	// Note: pay attention to rotation order, ZYX is not the same as XYZ
-	m_pLocalRotation = rz * ry * rx;
+	LocalRotation = rz * ry * rx;
 
 	// Create translation matrix
-	mat4 tran = glm::translate(m_pLocalPosition);
+	mat4 tran = glm::translate(LocalPosition);
 	//tran.Translate(m_pLocalPosition);
 
 	// Create scale matrix
-	mat4 scale = glm::scale(vec3(m_pScale));
+	mat4 scale = glm::scale(vec3(Scale));
 
 	//scale.Scale(m_pScale);
 
 	// Combine all above transforms into a single matrix
-	m_pLocalToWorldMatrix = tran * m_pLocalRotation * scale;
+	LocalToWorldMatrix = tran * LocalRotation * scale;
 }
 
 void Transform::draw()

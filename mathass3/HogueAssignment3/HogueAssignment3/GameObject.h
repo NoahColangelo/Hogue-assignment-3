@@ -20,10 +20,12 @@ public:
 
 	virtual void update(float dt);
 	void initializeSkeletonFromBVH(std::string BVHFilePath);
+	void addAnimation(BVHLoader* animation);
 
 protected:
 
 	int CurrentFrame;
+	vector<BVHLoader*> animations;
 	BVHLoader* BVHAnimation;
 	Joint* JointAnimation; // The animation for this specific joint
 

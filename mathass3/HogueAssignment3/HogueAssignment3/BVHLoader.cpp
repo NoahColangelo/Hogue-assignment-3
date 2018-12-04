@@ -37,7 +37,7 @@ Joint * BVHLoader::getJointInfoByName(const string & jointName) const
 {
 	for (Joint* jointInfo : _joints)
 	{
-		if (jointInfo->getName() == jointName)
+		if (jointInfo->jointName == jointName)
 			return jointInfo;
 	}
 
@@ -48,7 +48,7 @@ Transform * BVHLoader::getGameObjectByName(const string & jointName) const
 {
 	for (GameObject* gameObject : _jointGameObjects)
 	{
-		if (gameObject->_name == jointName)
+		if (gameObject->name == jointName)
 			return gameObject;
 	}
 
@@ -61,8 +61,8 @@ void BVHLoader::createGameObjects()
 	for (Joint* jointInfo : _joints)
 	{
 		GameObject* newJoint = new GameObject();
-		newJoint->_name = jointInfo->getName();
-		newJoint->_jointAnimation = jointInfo;
+		newJoint->name = jointInfo->jointName;
+		newJoint->JointAnimation = jointInfo;
 
 		_jointGameObjects.push_back(newJoint);
 	}
@@ -70,15 +70,15 @@ void BVHLoader::createGameObjects()
 	// Set up the hierarchy
 	for (Joint* jointInfo : _joints)
 	{
-		jointInfo->setNumOfFrames(_numOfFrames);
+		jointInfo->numOfFrames = _numOfFrames;
 
-		Transform* child = getGameObjectByName(jointInfo->getName());
-		Transform* parent = getGameObjectByName(jointInfo->getParentName());
+		Transform* child = getGameObjectByName(jointInfo->jointName);
+		Transform* parent = getGameObjectByName(jointInfo->jointParent);
 
 		if (!child || !parent)
 			continue;
 
-		parent->addChild(child);
+		parent->Children.push_back(child);
 	}
 }
 
@@ -161,11 +161,11 @@ bool BVHLoader::parseHierarchySection(ifstream & file)
 bool BVHLoader::parseJoint(ifstream & file, const string & parentName, Joint * currentJoint)
 {
 	// Set joint's parent's name
-	currentJoint->setParentName(parentName);
+	currentJoint->jointParent = parentName;
 
 	string name;
 	file >> name;
-	currentJoint->setName(name);
+	currentJoint->jointName = name;
 
 	string token;
 
@@ -178,7 +178,7 @@ bool BVHLoader::parseJoint(ifstream & file, const string & parentName, Joint * c
 		vec3 offset;
 		//sscanf(token.c_str(), "%*s %f %f %f", &offset.x, &offset.y, &offset.z);
 		file >> offset.x >> offset.y >> offset.z;
-		currentJoint->setOffset(offset);
+		currentJoint->offset = offset;
 	}
 	else
 	{
@@ -209,27 +209,27 @@ bool BVHLoader::parseJoint(ifstream & file, const string & parentName, Joint * c
 
 		if (token == "Xposition")
 		{
-			currentJoint->addChannelOrder(Channel::Xposition);
+			currentJoint->Channels.push_back(channels::xPosition);
 		}
 		else if (token == "Yposition")
 		{
-			currentJoint->addChannelOrder(Channel::Yposition);
-		}
-		else if (token == "Zposition")
-		{
-			currentJoint->addChannelOrder(Channel::Zposition);
+			currentJoint->Channels.push_back(channels::yPosition);
+		}												
+		else if (token == "Zposition")					
+		{											
+			currentJoint->Channels.push_back(channels::zPosition);
 		}
 		else if (token == "Xrotation")
 		{
-			currentJoint->addChannelOrder(Channel::Xrotation);
-		}
-		else if (token == "Yrotation")
-		{
-			currentJoint->addChannelOrder(Channel::Yrotation);
-		}
-		else if (token == "Zrotation")
-		{
-			currentJoint->addChannelOrder(Channel::Zrotation);
+			currentJoint->Channels.push_back(channels::xRotation);
+		}												
+		else if (token == "Yrotation")					
+		{												
+			currentJoint->Channels.push_back(channels::yRotation);
+		}												
+		else if (token == "Zrotation")					
+		{												
+			currentJoint->Channels.push_back(channels::zRotation);
 		}
 		else
 		{
@@ -251,8 +251,8 @@ bool BVHLoader::parseJoint(ifstream & file, const string & parentName, Joint * c
 		// Found a joint
 		if (token == "JOINT")
 		{
-			Joint* child = new JointInfo();
-			if (!parseJoint(file, currentJoint->getName(), child))
+			Joint* child = new Joint();
+			if (!parseJoint(file, currentJoint->jointName, child))
 			{
 				cout << "Could not parse child joint!" << endl;
 				system("pause");
@@ -268,8 +268,8 @@ bool BVHLoader::parseJoint(ifstream & file, const string & parentName, Joint * c
 
 			Joint* endJoint = new Joint();
 
-			endJoint->setParentName(currentJoint->getName());
-			endJoint->setName("End Site");
+			endJoint->jointParent = (currentJoint->jointName);
+			endJoint->jointName = "End Site";
 
 			file >> token;
 
@@ -354,12 +354,12 @@ bool BVHLoader::parseMotion(ifstream & file)
 			{
 				vector<float> data;
 				// Loop through each channel
-				for (unsigned int j = 0; j < (*it)->getNumOfChannels(); j++)
+				for (unsigned int j = 0; j < (*it)->Channels.size(); j++)
 				{
 					file >> value;
 					data.push_back(value);
 				}
-				(*it)->addFrameMotionData(data);
+				(*it)->motionData.push_back(data);
 			}
 		}
 	}
