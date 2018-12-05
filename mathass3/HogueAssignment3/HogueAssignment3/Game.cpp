@@ -25,8 +25,8 @@ void Game::initializeGame()
 	skeleton.initializeSkeletonFromBVH("../HogueAssignment3/assets/bvh/Jump.bvh");
 	skeleton.setPosition(vec3(0, 0, 0));
 	skeleton.addAnimation(skeleton.BVHAnimation);
-	skeleton.setScale(3.0f);
-	skeleton.setRotationAngleX(90.0f);
+	skeleton.setScale(1.0f);
+	//skeleton.setRotationAngleX(90.0f);
 
 	for (int i = 0; i < skeleton.animations.size(); i++)
 	{
